@@ -32,8 +32,7 @@ struct Projector
    void next_command();
    void PJD7820HD(int command_byte);                              // List of projector commands
 
-   void work();
-
+   void execution();
 };
 
 Projector::Projector()
@@ -70,7 +69,7 @@ void Projector::PJD7820HD(int command_byte)
    {
       case 0x26: send_command({0x26});             break;
 
-      case 0x75: work();                           break;                     // begin / finish emulation
+      case 0x75: execution();                      break;                     // begin / finish emulation
 
       case 0x69: send_command({0x69,0x80});        break;
       case 0x70: send_command({0x70});             break;
@@ -141,7 +140,7 @@ void Projector::next_command()
       command_counter++;                           
    } 
 }
-void Projector::work()
+void Projector::execution()
 {
    emulation = !emulation;
    if (emulation) 
